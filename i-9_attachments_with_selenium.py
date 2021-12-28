@@ -26,7 +26,7 @@ download_folder = os.environ.get("DOWNLOAD_FOLDER")
 
 # Selenium Driver Settings
 opts = Options()
-opts.set_headless(headless=False)  # View Screen
+opts.headless = False  # View Screen
 # opts.set_headless(headless=True)  # Headless
 driver = Chrome(options=opts)
 # driver.maximize_window()
