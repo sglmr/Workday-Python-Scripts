@@ -4,8 +4,7 @@ from tqdm import tqdm
 
 from dotenv import load_dotenv
 
-from selenium.webdriver import Chrome
-from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
@@ -16,7 +15,7 @@ logging.basicConfig(
     filename="i-9_attachment.log",
     filemode="w",
     format="%(levelname)s: %(message)s",
-    level=logging.INFO,
+    level=logging.WARNING,
 )
 
 
@@ -53,11 +52,14 @@ class Driver:
         self.env = EnvVars()
 
         # Driver Options
-        opts = Options()
-        opts.headless = False
+        opts = webdriver.ChromeOptions()
+        opts.headless = True
+
+        prefs = {"download.default_directory": self.env.download_folder}
+        opts.add_experimental_option("prefs", prefs)
 
         # Initialize Chrome Driver
-        self.driver = Chrome(options=opts)
+        self.driver = webdriver.Chrome(options=opts)
         self.driver.implicitly_wait(10)
 
         # Document Counter
