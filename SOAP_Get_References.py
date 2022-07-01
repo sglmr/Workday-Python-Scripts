@@ -21,7 +21,7 @@ class Get_References:
         self.tenant = tenant
         self.location_url = location_url
 
-    def soap_request(self, page=1):
+    def _soap_request(self, page=1):
         """Creates the SOAP request Envelope(Header, Body)
 
         :param page: Page # for response filter, defaults to 1
@@ -79,7 +79,7 @@ class Get_References:
         while self._page < self._pages:
             # Get response from Workday
             r = requests.post(
-                self.location_url, data=self.soap_request(page=self._page + 1)
+                self.location_url, data=self._soap_request(page=self._page + 1)
             )
             r.raise_for_status()
             self._parse_soap_response(response=r)
